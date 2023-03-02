@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${daoClass}">
+
+#if(${baseResultMap})
+	<resultMap id="baseResultMap" type="${modelClass}">
+#foreach($field in ${table.fields})
+		<result property="${field.propertyName}" column="${field.name}" />
+#end
+	</resultMap>
+#end
+
+    <sql id="fields"> #foreach($field in ${table.fields}) ${field.name}#if($foreach.hasNext),#end #end </sql>
+
+    <sql id="table_name">${table.name}</sql>
+
+    <sql id="selector">
+        select <include refid="fields"/> from <include refid="table_name"/>
+    </sql>
+
+    <delete id="deleteM">
+        DELETE FROM <include refid="table_name"/>
+        WHERE id = #{id}
+    </delete>
+
+    <insert id="createM" useGeneratedKeys="true" keyProperty="id" parameterType="${modelClass}">
+		INSERT INTO <include refid="table_name"/>(<include refid="fields"/>)
+        VALUES ( #foreach($field in ${table.fields}) #{${field.propertyName}}#if($foreach.hasNext),#end #end )
+	</insert>
+
+    <update id="updateM" parameterType="${modelClass}">
+        UPDATE
+        <include refid="table_name"/>
+        <set>
+    #foreach($field in ${table.fields})
+  #if(!${field.keyFlag})<if test="${field.propertyName} != null ">
+              ${field.name} = #{${field.propertyName}}#if($foreach.hasNext),#end
+
+            </if>
+      #end
+    #end
+</set>
+        where id = #{id}
+    </update>
+
+    <select id="getByIdM" resultMap="baseResultMap">
+        <include refid="selector"/>
+        WHERE id = #{id}
+    </select>
+
+    <select id="countM" resultType="java.lang.Long">
+        select
+        count(*)
+        from
+        <include refid="table_name"/>
+        <where>
+        #foreach($field in ${table.fields})
+    <if test="${field.propertyName} != null and ${field.propertyName} !='' ">
+                and ${field.name} = #{${field.propertyName}}
+            </if>
+        #end
+        </where>
+</select>
+
+    <select id="selectM" resultMap="baseResultMap">
+        <include refid="selector"/>
+        <where>
+        #foreach($field in ${table.fields})
+    <if test="${field.propertyName} != null #if(${field.type} != "datetime")and ${field.propertyName} !='' #end">
+                  and ${field.name} = #{${field.propertyName}}
+            </if>
+        #end
+        </where>
+    <if test="params.orderBy != null and params.orderBy != ''">
+                ORDER  BY ${params.orderBy}
+                <if test="params.by != null and params.by != ''">
+                    ${params.by}
+                </if>
+            </if>
+    </select>
+
+
+    <select id="selectByPageM" resultMap="baseResultMap">
+        <include refid="selector"/>
+        <where>
+        #foreach($field in ${table.fields})
+    <if test="model.${field.propertyName} != null #if(${field.type} != "datetime")and model.${field.propertyName} !='' #end">
+              and ${field.name} = #{model.${field.propertyName}}
+            </if>
+        #end
+    </where>
+        <if test="model.params != null and model.params.orderBy != null and model.params.orderBy != ''">
+            ORDER  BY ${model.params.orderBy}
+            <if test="model.params.by != null and model.params.by != ''">
+                ${model.params.by}
+            </if>
+        </if>
+        limit #{start}, #{count}
+    </select>
+
+</mapper>

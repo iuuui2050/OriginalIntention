@@ -1,0 +1,12 @@
+package ${servicePackage};
+
+import com.iuuui.base.BaseService;
+import ${modelPackage}.${entity};
+
+/**
+ * @author ${author}
+ * @since ${date}
+ */
+public interface ${table.serviceName} extends BaseService<${entity}> {
+
+}

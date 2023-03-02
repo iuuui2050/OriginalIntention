@@ -1,0 +1,12 @@
+package ${daoPackage};
+
+import com.iuuui.base.BaseDao;
+import ${modelPackage}.${entity};
+
+/**
+ * @author ${author}
+ * @since ${date}
+ */
+public interface ${table.mapperName} extends BaseDao<${entity}> {
+
+}

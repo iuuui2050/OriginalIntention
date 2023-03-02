@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iuuui.dao.system.SysUserDao">
+
+	<resultMap id="baseResultMap" type="com.iuuui.domain.system.SysUser">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="telCode" column="tel_code" />
+		<result property="tel" column="tel" />
+		<result property="avatar" column="avatar" />
+		<result property="gender" column="gender" />
+		<result property="status" column="status" />
+		<result property="introduction" column="introduction" />
+		<result property="remark" column="remark" />
+		<result property="createTime" column="create_time" />
+	</resultMap>
+
+    <sql id="fields">  id,  name,  tel_code,  tel,  avatar,  gender,  status,  introduction,  remark,  create_time  </sql>
+
+    <sql id="table_name">sys_user</sql>
+
+    <sql id="selector">
+        select <include refid="fields"/> from <include refid="table_name"/>
+    </sql>
+
+    <delete id="deleteM">
+        DELETE FROM <include refid="table_name"/>
+        WHERE id = #{id}
+    </delete>
+
+    <insert id="createM" useGeneratedKeys="true" keyProperty="id" parameterType="com.iuuui.domain.system.SysUser">
+		INSERT INTO <include refid="table_name"/>(<include refid="fields"/>)
+        VALUES (  #{id},  #{name},  #{telCode},  #{tel},  #{avatar},  #{gender},  #{status},  #{introduction},  #{remark},  #{createTime}  )
+	</insert>
+
+    <update id="updateM" parameterType="com.iuuui.domain.system.SysUser">
+        UPDATE
+        <include refid="table_name"/>
+        <set>
+            <if test="name != null ">
+              name = #{name},
+            </if>
+            <if test="telCode != null ">
+              tel_code = #{telCode},
+            </if>
+            <if test="tel != null ">
+              tel = #{tel},
+            </if>
+            <if test="avatar != null ">
+              avatar = #{avatar},
+            </if>
+            <if test="gender != null ">
+              gender = #{gender},
+            </if>
+            <if test="status != null ">
+              status = #{status},
+            </if>
+            <if test="introduction != null ">
+              introduction = #{introduction},
+            </if>
+            <if test="remark != null ">
+              remark = #{remark},
+            </if>
+            <if test="createTime != null ">
+              create_time = #{createTime}
+            </if>
+          </set>
+        where id = #{id}
+    </update>
+
+    <select id="getByIdM" resultMap="baseResultMap">
+        <include refid="selector"/>
+        WHERE id = #{id}
+    </select>
+
+    <select id="countM" resultType="java.lang.Long">
+        select
+        count(*)
+        from
+        <include refid="table_name"/>
+        <where>
+            <if test="id != null and id !='' ">
+                and id = #{id}
+            </if>
+            <if test="name != null and name !='' ">
+                and name = #{name}
+            </if>
+            <if test="telCode != null and telCode !='' ">
+                and tel_code = #{telCode}
+            </if>
+            <if test="tel != null and tel !='' ">
+                and tel = #{tel}
+            </if>
+            <if test="avatar != null and avatar !='' ">
+                and avatar = #{avatar}
+            </if>
+            <if test="gender != null and gender !='' ">
+                and gender = #{gender}
+            </if>
+            <if test="status != null and status !='' ">
+                and status = #{status}
+            </if>
+            <if test="introduction != null and introduction !='' ">
+                and introduction = #{introduction}
+            </if>
+            <if test="remark != null and remark !='' ">
+                and remark = #{remark}
+            </if>
+            <if test="createTime != null and createTime !='' ">
+                and create_time = #{createTime}
+            </if>
+                </where>
+</select>
+
+    <select id="selectM" resultMap="baseResultMap">
+        <include refid="selector"/>
+        <where>
+            <if test="id != null and id !='' ">
+                  and id = #{id}
+            </if>
+            <if test="name != null and name !='' ">
+                  and name = #{name}
+            </if>
+            <if test="telCode != null and telCode !='' ">
+                  and tel_code = #{telCode}
+            </if>
+            <if test="tel != null and tel !='' ">
+                  and tel = #{tel}
+            </if>
+            <if test="avatar != null and avatar !='' ">
+                  and avatar = #{avatar}
+            </if>
+            <if test="gender != null and gender !='' ">
+                  and gender = #{gender}
+            </if>
+            <if test="status != null and status !='' ">
+                  and status = #{status}
+            </if>
+            <if test="introduction != null and introduction !='' ">
+                  and introduction = #{introduction}
+            </if>
+            <if test="remark != null and remark !='' ">
+                  and remark = #{remark}
+            </if>
+            <if test="createTime != null ">
+                  and create_time = #{createTime}
+            </if>
+                </where>
+    <if test="params.orderBy != null and params.orderBy != ''">
+                ORDER  BY ${params.orderBy}
+                <if test="params.by != null and params.by != ''">
+                    ${params.by}
+                </if>
+            </if>
+    </select>
+
+
+    <select id="selectByPageM" resultMap="baseResultMap">
+        <include refid="selector"/>
+        <where>
+            <if test="model.id != null and model.id !='' ">
+              and id = #{model.id}
+            </if>
+            <if test="model.name != null and model.name !='' ">
+              and name = #{model.name}
+            </if>
+            <if test="model.telCode != null and model.telCode !='' ">
+              and tel_code = #{model.telCode}
+            </if>
+            <if test="model.tel != null and model.tel !='' ">
+              and tel = #{model.tel}
+            </if>
+            <if test="model.avatar != null and model.avatar !='' ">
+              and avatar = #{model.avatar}
+            </if>
+            <if test="model.gender != null and model.gender !='' ">
+              and gender = #{model.gender}
+            </if>
+            <if test="model.status != null and model.status !='' ">
+              and status = #{model.status}
+            </if>
+            <if test="model.introduction != null and model.introduction !='' ">
+              and introduction = #{model.introduction}
+            </if>
+            <if test="model.remark != null and model.remark !='' ">
+              and remark = #{model.remark}
+            </if>
+            <if test="model.createTime != null ">
+              and create_time = #{model.createTime}
+            </if>
+            </where>
+        <if test="model.params != null and model.params.orderBy != null and model.params.orderBy != ''">
+            ORDER  BY ${model.params.orderBy}
+            <if test="model.params.by != null and model.params.by != ''">
+                ${model.params.by}
+            </if>
+        </if>
+        limit #{start}, #{count}
+    </select>
+
+</mapper>

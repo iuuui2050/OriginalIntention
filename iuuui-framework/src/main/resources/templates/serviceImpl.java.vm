@@ -1,0 +1,26 @@
+package ${serviceImplPackage};
+
+import com.iuuui.base.BaseDao;
+import com.iuuui.base.BaseServiceImpl;
+import ${modelPackage}.${entity};
+import ${servicePackage}.${table.serviceName};
+import ${daoPackage}.${table.mapperName};
+import org.springframework.stereotype.Service;
+
+/**
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+public class ${table.serviceImplName} extends BaseServiceImpl<${entity}> implements ${table.serviceName} {
+
+    final ${table.mapperName} dao;
+
+    public ${table.serviceImplName}(${table.mapperName} dao) {
+        this.dao = dao;
+    }
+
+    @Override
+    public BaseDao<${entity}> getBaseDao() { return dao; }
+
+}
