@@ -20,6 +20,9 @@ import ${pkg};
 public class ${entity} extends BaseModel {
 
 #foreach($field in ${table.fields})
+	/**
+	 * ${field.comment}
+	 */
 	private ${field.propertyType} ${field.propertyName};
 
 #end

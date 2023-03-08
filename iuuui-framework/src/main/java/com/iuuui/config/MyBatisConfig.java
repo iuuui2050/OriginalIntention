@@ -8,6 +8,6 @@ import org.springframework.context.annotation.Configuration;
  * @time 20230302 2255
  */
 @Configuration
-//@MapperScan(basePackages = "com.iuuui.dao.*")
+@MapperScan(basePackages = "com.iuuui.dao")
 public class MyBatisConfig {
 }

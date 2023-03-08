@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.iuuui.dao.system.SysUserDao">
+<mapper namespace="com.iuuui.dao.system.SysDeptDao">
 
-	<resultMap id="baseResultMap" type="com.iuuui.domain.system.SysUser">
+	<resultMap id="baseResultMap" type="com.iuuui.domain.system.SysDept">
 		<result property="id" column="id" />
+		<result property="parentId" column="parent_id" />
 		<result property="name" column="name" />
-		<result property="nickname" column="nickname" />
-		<result property="telCode" column="tel_code" />
-		<result property="tel" column="tel" />
-		<result property="avatar" column="avatar" />
-		<result property="gender" column="gender" />
+		<result property="key" column="key" />
+		<result property="leaderUserId" column="leader_user_id" />
 		<result property="status" column="status" />
-		<result property="introduction" column="introduction" />
-		<result property="remark" column="remark" />
 		<result property="createUserId" column="create_user_id" />
 		<result property="createTime" column="create_time" />
 		<result property="updateUserId" column="update_user_id" />
 		<result property="updateTime" column="update_time" />
 	</resultMap>
 
-    <sql id="fields">  id,  name,  nickname,  tel_code,  tel,  avatar,  gender,  status,  introduction,  remark,  create_user_id,  create_time,  update_user_id,  update_time  </sql>
+    <sql id="fields">  id,  parent_id,  name,  key,  leader_user_id,  status,  create_user_id,  create_time,  update_user_id,  update_time  </sql>
 
-    <sql id="table_name">sys_user</sql>
+    <sql id="table_name">sys_dept</sql>
 
     <sql id="selector">
         select <include refid="fields"/> from <include refid="table_name"/>
@@ -32,41 +28,29 @@
         WHERE id = #{id}
     </delete>
 
-    <insert id="createM" useGeneratedKeys="true" keyProperty="id" parameterType="com.iuuui.domain.system.SysUser">
+    <insert id="createM" useGeneratedKeys="true" keyProperty="id" parameterType="com.iuuui.domain.system.SysDept">
 		INSERT INTO <include refid="table_name"/>(<include refid="fields"/>)
-        VALUES (  #{id},  #{name},  #{nickname},  #{telCode},  #{tel},  #{avatar},  #{gender},  #{status},  #{introduction},  #{remark},  #{createUserId},  #{createTime},  #{updateUserId},  #{updateTime}  )
+        VALUES (  #{id},  #{parentId},  #{name},  #{key},  #{leaderUserId},  #{status},  #{createUserId},  #{createTime},  #{updateUserId},  #{updateTime}  )
 	</insert>
 
-    <update id="updateM" parameterType="com.iuuui.domain.system.SysUser">
+    <update id="updateM" parameterType="com.iuuui.domain.system.SysDept">
         UPDATE
         <include refid="table_name"/>
         <set>
+            <if test="parentId != null ">
+              parent_id = #{parentId},
+            </if>
             <if test="name != null ">
               name = #{name},
             </if>
-            <if test="nickname != null ">
-              nickname = #{nickname},
+            <if test="key != null ">
+              key = #{key},
             </if>
-            <if test="telCode != null ">
-              tel_code = #{telCode},
-            </if>
-            <if test="tel != null ">
-              tel = #{tel},
-            </if>
-            <if test="avatar != null ">
-              avatar = #{avatar},
-            </if>
-            <if test="gender != null ">
-              gender = #{gender},
+            <if test="leaderUserId != null ">
+              leader_user_id = #{leaderUserId},
             </if>
             <if test="status != null ">
               status = #{status},
-            </if>
-            <if test="introduction != null ">
-              introduction = #{introduction},
-            </if>
-            <if test="remark != null ">
-              remark = #{remark},
             </if>
             <if test="createUserId != null ">
               create_user_id = #{createUserId},
@@ -98,32 +82,20 @@
             <if test="id != null and id !='' ">
                 and id = #{id}
             </if>
+            <if test="parentId != null and parentId !='' ">
+                and parent_id = #{parentId}
+            </if>
             <if test="name != null and name !='' ">
                 and name = #{name}
             </if>
-            <if test="nickname != null and nickname !='' ">
-                and nickname = #{nickname}
+            <if test="key != null and key !='' ">
+                and key = #{key}
             </if>
-            <if test="telCode != null and telCode !='' ">
-                and tel_code = #{telCode}
-            </if>
-            <if test="tel != null and tel !='' ">
-                and tel = #{tel}
-            </if>
-            <if test="avatar != null and avatar !='' ">
-                and avatar = #{avatar}
-            </if>
-            <if test="gender != null and gender !='' ">
-                and gender = #{gender}
+            <if test="leaderUserId != null and leaderUserId !='' ">
+                and leader_user_id = #{leaderUserId}
             </if>
             <if test="status != null and status !='' ">
                 and status = #{status}
-            </if>
-            <if test="introduction != null and introduction !='' ">
-                and introduction = #{introduction}
-            </if>
-            <if test="remark != null and remark !='' ">
-                and remark = #{remark}
             </if>
             <if test="createUserId != null and createUserId !='' ">
                 and create_user_id = #{createUserId}
@@ -146,32 +118,20 @@
             <if test="id != null and id !='' ">
                   and id = #{id}
             </if>
+            <if test="parentId != null and parentId !='' ">
+                  and parent_id = #{parentId}
+            </if>
             <if test="name != null and name !='' ">
                   and name = #{name}
             </if>
-            <if test="nickname != null and nickname !='' ">
-                  and nickname = #{nickname}
+            <if test="key != null and key !='' ">
+                  and key = #{key}
             </if>
-            <if test="telCode != null and telCode !='' ">
-                  and tel_code = #{telCode}
-            </if>
-            <if test="tel != null and tel !='' ">
-                  and tel = #{tel}
-            </if>
-            <if test="avatar != null and avatar !='' ">
-                  and avatar = #{avatar}
-            </if>
-            <if test="gender != null and gender !='' ">
-                  and gender = #{gender}
+            <if test="leaderUserId != null and leaderUserId !='' ">
+                  and leader_user_id = #{leaderUserId}
             </if>
             <if test="status != null and status !='' ">
                   and status = #{status}
-            </if>
-            <if test="introduction != null and introduction !='' ">
-                  and introduction = #{introduction}
-            </if>
-            <if test="remark != null and remark !='' ">
-                  and remark = #{remark}
             </if>
             <if test="createUserId != null and createUserId !='' ">
                   and create_user_id = #{createUserId}
@@ -201,32 +161,20 @@
             <if test="model.id != null and model.id !='' ">
               and id = #{model.id}
             </if>
+            <if test="model.parentId != null and model.parentId !='' ">
+              and parent_id = #{model.parentId}
+            </if>
             <if test="model.name != null and model.name !='' ">
               and name = #{model.name}
             </if>
-            <if test="model.nickname != null and model.nickname !='' ">
-              and nickname = #{model.nickname}
+            <if test="model.key != null and model.key !='' ">
+              and key = #{model.key}
             </if>
-            <if test="model.telCode != null and model.telCode !='' ">
-              and tel_code = #{model.telCode}
-            </if>
-            <if test="model.tel != null and model.tel !='' ">
-              and tel = #{model.tel}
-            </if>
-            <if test="model.avatar != null and model.avatar !='' ">
-              and avatar = #{model.avatar}
-            </if>
-            <if test="model.gender != null and model.gender !='' ">
-              and gender = #{model.gender}
+            <if test="model.leaderUserId != null and model.leaderUserId !='' ">
+              and leader_user_id = #{model.leaderUserId}
             </if>
             <if test="model.status != null and model.status !='' ">
               and status = #{model.status}
-            </if>
-            <if test="model.introduction != null and model.introduction !='' ">
-              and introduction = #{model.introduction}
-            </if>
-            <if test="model.remark != null and model.remark !='' ">
-              and remark = #{model.remark}
             </if>
             <if test="model.createUserId != null and model.createUserId !='' ">
               and create_user_id = #{model.createUserId}

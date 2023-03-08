@@ -54,7 +54,7 @@ public class GeneratorConfig {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setTablePrefix(new String[]{info.getTablePre()});
         strategy.setNaming(NamingStrategy.underline_to_camel);
-        strategy.setInclude(new String[]{info.getTable()});
+        strategy.setInclude(info.getTable().split(","));
         mpg.setStrategy(strategy);
         mpg.setGeneratorInfo(info);
 

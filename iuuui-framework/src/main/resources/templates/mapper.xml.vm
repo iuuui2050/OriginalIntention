@@ -59,7 +59,7 @@
                 and ${field.name} = #{${field.propertyName}}
             </if>
         #end
-        </where>
+</where>
 </select>
 
     <select id="selectM" resultMap="baseResultMap">
@@ -70,13 +70,13 @@
                   and ${field.name} = #{${field.propertyName}}
             </if>
         #end
-        </where>
-    <if test="params.orderBy != null and params.orderBy != ''">
-                ORDER  BY ${params.orderBy}
-                <if test="params.by != null and params.by != ''">
-                    ${params.by}
-                </if>
+</where>
+        <if test="params.orderBy != null and params.orderBy != ''">
+            ORDER  BY ${params.orderBy}
+            <if test="params.by != null and params.by != ''">
+                ${params.by}
             </if>
+        </if>
     </select>
 
 
@@ -88,7 +88,7 @@
               and ${field.name} = #{model.${field.propertyName}}
             </if>
         #end
-    </where>
+</where>
         <if test="model.params != null and model.params.orderBy != null and model.params.orderBy != ''">
             ORDER  BY ${model.params.orderBy}
             <if test="model.params.by != null and model.params.by != ''">

@@ -1,12 +1,12 @@
 package com.iuuui.service.system;
 
 import com.iuuui.base.BaseService;
-import com.iuuui.domain.system.SysUser;
+import com.iuuui.domain.system.SysRole;
 
 /**
  * @author iuuui
  * @since 2023-03-05 12:16
  */
-public interface SysUserService extends BaseService<SysUser> {
+public interface SysRoleService extends BaseService<SysRole> {
 
 }

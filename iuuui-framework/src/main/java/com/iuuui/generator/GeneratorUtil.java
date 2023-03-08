@@ -44,7 +44,7 @@ public class GeneratorUtil {
         info.setServiceImplPackage(packagePath + ".service." + model + ".impl");
 
         info.setAuthor("iuuui");
-        info.setTable("sys_user");
+        info.setTable("sys_user,sys_role,sys_dept,sys_user_password,sys_user_role,sys_user_dept");
 
 
         GeneratorConfig.execute(info);

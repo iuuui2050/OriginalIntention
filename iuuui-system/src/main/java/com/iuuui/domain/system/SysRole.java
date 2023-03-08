@@ -4,56 +4,36 @@ import com.iuuui.base.BaseModel;
 import java.util.Date;
 
 /**
- * 用户表
+ * 角色表
  * @author iuuui
  * @since 2023-03-05 12:16
  */
-public class SysUser extends BaseModel {
+public class SysRole extends BaseModel {
 
 	/**
-	 * 
+	 * 角色ID
 	 */
 	private Long id;
 
 	/**
-	 * 名称
+	 * 角色名称
 	 */
 	private String name;
 
 	/**
-	 * 昵称
+	 * 角色权限字符串
 	 */
-	private String nickname;
+	private String key;
 
 	/**
-	 * 手机号区号
+	 * 数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）
 	 */
-	private String telCode;
+	private Integer dataScope;
 
 	/**
-	 * 手机号
+	 * 角色状态
 	 */
-	private String tel;
-
-	/**
-	 * 头像
-	 */
-	private String avatar;
-
-	/**
-	 * 性别
-	 */
-	private Integer gender;
-
-	/**
-	 * 状态
-	 */
-	private Integer status;
-
-	/**
-	 * 简介
-	 */
-	private String introduction;
+	private Boolean status;
 
 	/**
 	 * 备注
@@ -61,7 +41,12 @@ public class SysUser extends BaseModel {
 	private String remark;
 
 	/**
-	 * 创建人
+	 * 排序
+	 */
+	private Integer sort;
+
+	/**
+	 * 创建者
 	 */
 	private Long createUserId;
 
@@ -71,12 +56,12 @@ public class SysUser extends BaseModel {
 	private Date createTime;
 
 	/**
-	 * 修改人
+	 * 更新人
 	 */
 	private Long updateUserId;
 
 	/**
-	 * 修改时间
+	 * 更新时间
 	 */
 	private Date updateTime;
 
@@ -98,60 +83,28 @@ public class SysUser extends BaseModel {
 		this.name = name;
 	}
 
-	public String getNickname() {
-		return nickname;
+	public String getKey() {
+		return key;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setKey(String key) {
+		this.key = key;
 	}
 
-	public String getTelCode() {
-		return telCode;
+	public Integer getDataScope() {
+		return dataScope;
 	}
 
-	public void setTelCode(String telCode) {
-		this.telCode = telCode;
+	public void setDataScope(Integer dataScope) {
+		this.dataScope = dataScope;
 	}
 
-	public String getTel() {
-		return tel;
-	}
-
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
-
-	public String getAvatar() {
-		return avatar;
-	}
-
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
-
-	public Integer getGender() {
-		return gender;
-	}
-
-	public void setGender(Integer gender) {
-		this.gender = gender;
-	}
-
-	public Integer getStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
-	}
-
-	public String getIntroduction() {
-		return introduction;
-	}
-
-	public void setIntroduction(String introduction) {
-		this.introduction = introduction;
 	}
 
 	public String getRemark() {
@@ -160,6 +113,14 @@ public class SysUser extends BaseModel {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
 	}
 
 	public Long getCreateUserId() {

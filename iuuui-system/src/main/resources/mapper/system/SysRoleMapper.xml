@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.iuuui.dao.system.SysUserDao">
+<mapper namespace="com.iuuui.dao.system.SysRoleDao">
 
-	<resultMap id="baseResultMap" type="com.iuuui.domain.system.SysUser">
+	<resultMap id="baseResultMap" type="com.iuuui.domain.system.SysRole">
 		<result property="id" column="id" />
 		<result property="name" column="name" />
-		<result property="nickname" column="nickname" />
-		<result property="telCode" column="tel_code" />
-		<result property="tel" column="tel" />
-		<result property="avatar" column="avatar" />
-		<result property="gender" column="gender" />
+		<result property="key" column="key" />
+		<result property="dataScope" column="data_scope" />
 		<result property="status" column="status" />
-		<result property="introduction" column="introduction" />
 		<result property="remark" column="remark" />
+		<result property="sort" column="sort" />
 		<result property="createUserId" column="create_user_id" />
 		<result property="createTime" column="create_time" />
 		<result property="updateUserId" column="update_user_id" />
 		<result property="updateTime" column="update_time" />
 	</resultMap>
 
-    <sql id="fields">  id,  name,  nickname,  tel_code,  tel,  avatar,  gender,  status,  introduction,  remark,  create_user_id,  create_time,  update_user_id,  update_time  </sql>
+    <sql id="fields">  id,  name,  key,  data_scope,  status,  remark,  sort,  create_user_id,  create_time,  update_user_id,  update_time  </sql>
 
-    <sql id="table_name">sys_user</sql>
+    <sql id="table_name">sys_role</sql>
 
     <sql id="selector">
         select <include refid="fields"/> from <include refid="table_name"/>
@@ -32,41 +29,32 @@
         WHERE id = #{id}
     </delete>
 
-    <insert id="createM" useGeneratedKeys="true" keyProperty="id" parameterType="com.iuuui.domain.system.SysUser">
+    <insert id="createM" useGeneratedKeys="true" keyProperty="id" parameterType="com.iuuui.domain.system.SysRole">
 		INSERT INTO <include refid="table_name"/>(<include refid="fields"/>)
-        VALUES (  #{id},  #{name},  #{nickname},  #{telCode},  #{tel},  #{avatar},  #{gender},  #{status},  #{introduction},  #{remark},  #{createUserId},  #{createTime},  #{updateUserId},  #{updateTime}  )
+        VALUES (  #{id},  #{name},  #{key},  #{dataScope},  #{status},  #{remark},  #{sort},  #{createUserId},  #{createTime},  #{updateUserId},  #{updateTime}  )
 	</insert>
 
-    <update id="updateM" parameterType="com.iuuui.domain.system.SysUser">
+    <update id="updateM" parameterType="com.iuuui.domain.system.SysRole">
         UPDATE
         <include refid="table_name"/>
         <set>
             <if test="name != null ">
               name = #{name},
             </if>
-            <if test="nickname != null ">
-              nickname = #{nickname},
+            <if test="key != null ">
+              key = #{key},
             </if>
-            <if test="telCode != null ">
-              tel_code = #{telCode},
-            </if>
-            <if test="tel != null ">
-              tel = #{tel},
-            </if>
-            <if test="avatar != null ">
-              avatar = #{avatar},
-            </if>
-            <if test="gender != null ">
-              gender = #{gender},
+            <if test="dataScope != null ">
+              data_scope = #{dataScope},
             </if>
             <if test="status != null ">
               status = #{status},
             </if>
-            <if test="introduction != null ">
-              introduction = #{introduction},
-            </if>
             <if test="remark != null ">
               remark = #{remark},
+            </if>
+            <if test="sort != null ">
+              sort = #{sort},
             </if>
             <if test="createUserId != null ">
               create_user_id = #{createUserId},
@@ -101,29 +89,20 @@
             <if test="name != null and name !='' ">
                 and name = #{name}
             </if>
-            <if test="nickname != null and nickname !='' ">
-                and nickname = #{nickname}
+            <if test="key != null and key !='' ">
+                and key = #{key}
             </if>
-            <if test="telCode != null and telCode !='' ">
-                and tel_code = #{telCode}
-            </if>
-            <if test="tel != null and tel !='' ">
-                and tel = #{tel}
-            </if>
-            <if test="avatar != null and avatar !='' ">
-                and avatar = #{avatar}
-            </if>
-            <if test="gender != null and gender !='' ">
-                and gender = #{gender}
+            <if test="dataScope != null and dataScope !='' ">
+                and data_scope = #{dataScope}
             </if>
             <if test="status != null and status !='' ">
                 and status = #{status}
             </if>
-            <if test="introduction != null and introduction !='' ">
-                and introduction = #{introduction}
-            </if>
             <if test="remark != null and remark !='' ">
                 and remark = #{remark}
+            </if>
+            <if test="sort != null and sort !='' ">
+                and sort = #{sort}
             </if>
             <if test="createUserId != null and createUserId !='' ">
                 and create_user_id = #{createUserId}
@@ -149,29 +128,20 @@
             <if test="name != null and name !='' ">
                   and name = #{name}
             </if>
-            <if test="nickname != null and nickname !='' ">
-                  and nickname = #{nickname}
+            <if test="key != null and key !='' ">
+                  and key = #{key}
             </if>
-            <if test="telCode != null and telCode !='' ">
-                  and tel_code = #{telCode}
-            </if>
-            <if test="tel != null and tel !='' ">
-                  and tel = #{tel}
-            </if>
-            <if test="avatar != null and avatar !='' ">
-                  and avatar = #{avatar}
-            </if>
-            <if test="gender != null and gender !='' ">
-                  and gender = #{gender}
+            <if test="dataScope != null and dataScope !='' ">
+                  and data_scope = #{dataScope}
             </if>
             <if test="status != null and status !='' ">
                   and status = #{status}
             </if>
-            <if test="introduction != null and introduction !='' ">
-                  and introduction = #{introduction}
-            </if>
             <if test="remark != null and remark !='' ">
                   and remark = #{remark}
+            </if>
+            <if test="sort != null and sort !='' ">
+                  and sort = #{sort}
             </if>
             <if test="createUserId != null and createUserId !='' ">
                   and create_user_id = #{createUserId}
@@ -204,29 +174,20 @@
             <if test="model.name != null and model.name !='' ">
               and name = #{model.name}
             </if>
-            <if test="model.nickname != null and model.nickname !='' ">
-              and nickname = #{model.nickname}
+            <if test="model.key != null and model.key !='' ">
+              and key = #{model.key}
             </if>
-            <if test="model.telCode != null and model.telCode !='' ">
-              and tel_code = #{model.telCode}
-            </if>
-            <if test="model.tel != null and model.tel !='' ">
-              and tel = #{model.tel}
-            </if>
-            <if test="model.avatar != null and model.avatar !='' ">
-              and avatar = #{model.avatar}
-            </if>
-            <if test="model.gender != null and model.gender !='' ">
-              and gender = #{model.gender}
+            <if test="model.dataScope != null and model.dataScope !='' ">
+              and data_scope = #{model.dataScope}
             </if>
             <if test="model.status != null and model.status !='' ">
               and status = #{model.status}
             </if>
-            <if test="model.introduction != null and model.introduction !='' ">
-              and introduction = #{model.introduction}
-            </if>
             <if test="model.remark != null and model.remark !='' ">
               and remark = #{model.remark}
+            </if>
+            <if test="model.sort != null and model.sort !='' ">
+              and sort = #{model.sort}
             </if>
             <if test="model.createUserId != null and model.createUserId !='' ">
               and create_user_id = #{model.createUserId}

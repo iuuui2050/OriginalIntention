@@ -5,6 +5,7 @@
 	<resultMap id="baseResultMap" type="com.iuuui.domain.system.SysUser">
 		<result property="id" column="id" />
 		<result property="name" column="name" />
+		<result property="nickname" column="nickname" />
 		<result property="telCode" column="tel_code" />
 		<result property="tel" column="tel" />
 		<result property="avatar" column="avatar" />
@@ -12,10 +13,11 @@
 		<result property="status" column="status" />
 		<result property="introduction" column="introduction" />
 		<result property="remark" column="remark" />
+		<result property="createUserId" column="create_user_id" />
 		<result property="createTime" column="create_time" />
 	</resultMap>
 
-    <sql id="fields">  id,  name,  tel_code,  tel,  avatar,  gender,  status,  introduction,  remark,  create_time  </sql>
+    <sql id="fields">  id,  name,  nickname,  tel_code,  tel,  avatar,  gender,  status,  introduction,  remark,  create_user_id,  create_time  </sql>
 
     <sql id="table_name">sys_user</sql>
 
@@ -30,7 +32,7 @@
 
     <insert id="createM" useGeneratedKeys="true" keyProperty="id" parameterType="com.iuuui.domain.system.SysUser">
 		INSERT INTO <include refid="table_name"/>(<include refid="fields"/>)
-        VALUES (  #{id},  #{name},  #{telCode},  #{tel},  #{avatar},  #{gender},  #{status},  #{introduction},  #{remark},  #{createTime}  )
+        VALUES (  #{id},  #{name},  #{nickname},  #{telCode},  #{tel},  #{avatar},  #{gender},  #{status},  #{introduction},  #{remark},  #{createUserId},  #{createTime}  )
 	</insert>
 
     <update id="updateM" parameterType="com.iuuui.domain.system.SysUser">
@@ -39,6 +41,9 @@
         <set>
             <if test="name != null ">
               name = #{name},
+            </if>
+            <if test="nickname != null ">
+              nickname = #{nickname},
             </if>
             <if test="telCode != null ">
               tel_code = #{telCode},
@@ -60,6 +65,9 @@
             </if>
             <if test="remark != null ">
               remark = #{remark},
+            </if>
+            <if test="createUserId != null ">
+              create_user_id = #{createUserId},
             </if>
             <if test="createTime != null ">
               create_time = #{createTime}
@@ -85,6 +93,9 @@
             <if test="name != null and name !='' ">
                 and name = #{name}
             </if>
+            <if test="nickname != null and nickname !='' ">
+                and nickname = #{nickname}
+            </if>
             <if test="telCode != null and telCode !='' ">
                 and tel_code = #{telCode}
             </if>
@@ -106,10 +117,13 @@
             <if test="remark != null and remark !='' ">
                 and remark = #{remark}
             </if>
+            <if test="createUserId != null and createUserId !='' ">
+                and create_user_id = #{createUserId}
+            </if>
             <if test="createTime != null and createTime !='' ">
                 and create_time = #{createTime}
             </if>
-                </where>
+        </where>
 </select>
 
     <select id="selectM" resultMap="baseResultMap">
@@ -120,6 +134,9 @@
             </if>
             <if test="name != null and name !='' ">
                   and name = #{name}
+            </if>
+            <if test="nickname != null and nickname !='' ">
+                  and nickname = #{nickname}
             </if>
             <if test="telCode != null and telCode !='' ">
                   and tel_code = #{telCode}
@@ -142,16 +159,19 @@
             <if test="remark != null and remark !='' ">
                   and remark = #{remark}
             </if>
+            <if test="createUserId != null and createUserId !='' ">
+                  and create_user_id = #{createUserId}
+            </if>
             <if test="createTime != null ">
                   and create_time = #{createTime}
             </if>
-                </where>
-    <if test="params.orderBy != null and params.orderBy != ''">
-                ORDER  BY ${params.orderBy}
-                <if test="params.by != null and params.by != ''">
-                    ${params.by}
-                </if>
+        </where>
+        <if test="params.orderBy != null and params.orderBy != ''">
+            ORDER  BY ${params.orderBy}
+            <if test="params.by != null and params.by != ''">
+                ${params.by}
             </if>
+        </if>
     </select>
 
 
@@ -163,6 +183,9 @@
             </if>
             <if test="model.name != null and model.name !='' ">
               and name = #{model.name}
+            </if>
+            <if test="model.nickname != null and model.nickname !='' ">
+              and nickname = #{model.nickname}
             </if>
             <if test="model.telCode != null and model.telCode !='' ">
               and tel_code = #{model.telCode}
@@ -185,10 +208,13 @@
             <if test="model.remark != null and model.remark !='' ">
               and remark = #{model.remark}
             </if>
+            <if test="model.createUserId != null and model.createUserId !='' ">
+              and create_user_id = #{model.createUserId}
+            </if>
             <if test="model.createTime != null ">
               and create_time = #{model.createTime}
             </if>
-            </where>
+        </where>
         <if test="model.params != null and model.params.orderBy != null and model.params.orderBy != ''">
             ORDER  BY ${model.params.orderBy}
             <if test="model.params.by != null and model.params.by != ''">

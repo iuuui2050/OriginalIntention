@@ -213,7 +213,7 @@ public class StructureUtil {
             if (service && isCreate(serviceFile)) {
                 vmToFile(context, template.getService(), serviceFile);
             }
-            if (service && isCreate(serviceImplFile)) {
+            if (serviceImpl && isCreate(serviceImplFile)) {
                 vmToFile(context, template.getServiceImpl(), serviceImplFile);
             }
 
