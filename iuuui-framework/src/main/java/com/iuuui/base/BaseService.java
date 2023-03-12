@@ -19,6 +19,8 @@ public interface BaseService<T> {
 
     T getByIdM(Object id);
 
+    T findByIdM(Object id);
+
     Long countM(T model);
 
     List<T> selectM(T model);

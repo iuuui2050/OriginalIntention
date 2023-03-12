@@ -22,5 +22,8 @@ public class UserHelper {
     public static String TOKEN_KEY_PRE = "userToken:";
 
 
+    public static Long getUserId() {
+        return 1L;
+    }
 
 }

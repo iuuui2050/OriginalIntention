@@ -13,4 +13,13 @@ public class BusinessException extends RuntimeException {
 		super(exceptionEnum.getMessage());
 	}
 
+	public BusinessException(ExceptionEnum exceptionEnum, Object... args) {
+		super(wrap(exceptionEnum, args));
+	}
+
+	private static String wrap(ExceptionEnum exceptionEnum, Object... args) {
+		String msg = exceptionEnum.getMessageArgs();
+		return String.format(msg, args);
+	}
+
 }

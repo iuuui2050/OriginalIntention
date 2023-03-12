@@ -23,8 +23,8 @@ public class SpringFactoryUtils implements ApplicationContextAware {
         return object;
     }
 
-    public static <T> T getObject(Class<T> t) {
-        T bean = context.getBean(t);
+    public static <T> T getObject(Class<T> T) {
+        T bean = context.getBean(T);
         return bean;
     }
 

@@ -30,8 +30,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole> impleme
 
     @Override
     public void save(Long userId, List<Long> roleIds) {
-        Assert.notNull(userId, "userId argument must be null");
-        if (CollectionUtils.isEmpty(roleIds)) return;
+        Assert.notNull(userId, "userId argument must not be null");
         List<SysUserRole> userRoles = this.findByUserId(userId);
         // del
         for (SysUserRole userRole : userRoles) {
@@ -63,7 +62,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole> impleme
 
     @Override
     public List<Long> findRoleIds(Long userId) {
-        Assert.notNull(userId, "userId argument must be null");
+        Assert.notNull(userId, "userId argument must not be null");
         List<SysUserRole> userRoles = this.findByUserId(userId);
         if (CollectionUtils.isEmpty(userRoles))
             return CollectionUtils.newList();
@@ -72,7 +71,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole> impleme
 
     @Override
     public List<Long> findUserIds(Long roleId) {
-        Assert.notNull(roleId, "roleId argument must be null");
+        Assert.notNull(roleId, "roleId argument must not be null");
         List<SysUserRole> userRoles = this.findByRoleId(roleId);
         if (CollectionUtils.isEmpty(userRoles))
             return CollectionUtils.newList();
@@ -81,7 +80,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole> impleme
 
     @Override
     public List<SysUserRole> findByUserId(Long userId) {
-        Assert.notNull(userId, "userId argument must be null");
+        Assert.notNull(userId, "userId argument must not be null");
         SysUserRole query = new SysUserRole();
         query.setUserId(userId);
         return super.selectM(query);
@@ -89,7 +88,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole> impleme
 
     @Override
     public List<SysUserRole> findByRoleId(Long roleId) {
-        Assert.notNull(roleId, "roleId argument must be null");
+        Assert.notNull(roleId, "roleId argument must not be null");
         SysUserRole query = new SysUserRole();
         query.setRoleId(roleId);
         return super.selectM(query);

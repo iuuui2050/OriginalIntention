@@ -1,5 +1,7 @@
 package com.iuuui.domain.system;
 
+import com.iuuui.annotation.auto.AutoTime;
+import com.iuuui.annotation.auto.AutoUserId;
 import com.iuuui.base.BaseModel;
 import java.util.Date;
 
@@ -23,10 +25,10 @@ public class SysRole extends BaseModel {
 	/**
 	 * 角色权限字符串
 	 */
-	private String key;
+	private String code;
 
 	/**
-	 * 数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）
+	 * 数据范围（SysRoleDataScopeEnum）
 	 */
 	private Integer dataScope;
 
@@ -48,21 +50,25 @@ public class SysRole extends BaseModel {
 	/**
 	 * 创建者
 	 */
+	@AutoUserId
 	private Long createUserId;
 
 	/**
 	 * 创建时间
 	 */
+	@AutoTime
 	private Date createTime;
 
 	/**
 	 * 更新人
 	 */
+	@AutoUserId(force = true)
 	private Long updateUserId;
 
 	/**
 	 * 更新时间
 	 */
+	@AutoTime(force = true)
 	private Date updateTime;
 
 
@@ -83,12 +89,12 @@ public class SysRole extends BaseModel {
 		this.name = name;
 	}
 
-	public String getKey() {
-		return key;
+	public String getCode() {
+		return code;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public Integer getDataScope() {

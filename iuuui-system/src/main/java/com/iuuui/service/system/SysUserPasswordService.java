@@ -9,4 +9,8 @@ import com.iuuui.domain.system.SysUserPassword;
  */
 public interface SysUserPasswordService extends BaseService<SysUserPassword> {
 
+    void save(Long userId, String password, String salt);
+
+    SysUserPassword findByUserId(Long userId);
+
 }

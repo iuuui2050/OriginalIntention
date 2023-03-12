@@ -13,11 +13,14 @@
 		<result property="status" column="status" />
 		<result property="introduction" column="introduction" />
 		<result property="remark" column="remark" />
+		<result property="deptId" column="dept_id" />
 		<result property="createUserId" column="create_user_id" />
 		<result property="createTime" column="create_time" />
+		<result property="updateUserId" column="update_user_id" />
+		<result property="updateTime" column="update_time" />
 	</resultMap>
 
-    <sql id="fields">  id,  name,  nickname,  tel_code,  tel,  avatar,  gender,  status,  introduction,  remark,  create_user_id,  create_time  </sql>
+    <sql id="fields">  id,  name,  nickname,  tel_code,  tel,  avatar,  gender,  status,  introduction,  remark, dept_id, create_user_id,  create_time,  update_user_id,  update_time  </sql>
 
     <sql id="table_name">sys_user</sql>
 
@@ -32,7 +35,7 @@
 
     <insert id="createM" useGeneratedKeys="true" keyProperty="id" parameterType="com.iuuui.domain.system.SysUser">
 		INSERT INTO <include refid="table_name"/>(<include refid="fields"/>)
-        VALUES (  #{id},  #{name},  #{nickname},  #{telCode},  #{tel},  #{avatar},  #{gender},  #{status},  #{introduction},  #{remark},  #{createUserId},  #{createTime}  )
+        VALUES (  #{id},  #{name},  #{nickname},  #{telCode},  #{tel},  #{avatar},  #{gender},  #{status},  #{introduction},  #{remark}, #{deptId},  #{createUserId},  #{createTime},  #{updateUserId},  #{updateTime}  )
 	</insert>
 
     <update id="updateM" parameterType="com.iuuui.domain.system.SysUser">
@@ -66,11 +69,20 @@
             <if test="remark != null ">
               remark = #{remark},
             </if>
+            <if test="deptId != null ">
+                dept_id = #{deptId},
+            </if>
             <if test="createUserId != null ">
               create_user_id = #{createUserId},
             </if>
             <if test="createTime != null ">
-              create_time = #{createTime}
+              create_time = #{createTime},
+            </if>
+            <if test="updateUserId != null ">
+              update_user_id = #{updateUserId},
+            </if>
+            <if test="updateTime != null ">
+              update_time = #{updateTime}
             </if>
           </set>
         where id = #{id}
@@ -117,11 +129,20 @@
             <if test="remark != null and remark !='' ">
                 and remark = #{remark}
             </if>
+            <if test="deptId != null ">
+                and dept_id = #{deptId}
+            </if>
             <if test="createUserId != null and createUserId !='' ">
                 and create_user_id = #{createUserId}
             </if>
             <if test="createTime != null and createTime !='' ">
                 and create_time = #{createTime}
+            </if>
+            <if test="updateUserId != null and updateUserId !='' ">
+                and update_user_id = #{updateUserId}
+            </if>
+            <if test="updateTime != null and updateTime !='' ">
+                and update_time = #{updateTime}
             </if>
         </where>
 </select>
@@ -159,11 +180,20 @@
             <if test="remark != null and remark !='' ">
                   and remark = #{remark}
             </if>
+            <if test="deptId != null ">
+                and dept_id = #{deptId}
+            </if>
             <if test="createUserId != null and createUserId !='' ">
                   and create_user_id = #{createUserId}
             </if>
             <if test="createTime != null ">
                   and create_time = #{createTime}
+            </if>
+            <if test="updateUserId != null and updateUserId !='' ">
+                  and update_user_id = #{updateUserId}
+            </if>
+            <if test="updateTime != null ">
+                  and update_time = #{updateTime}
             </if>
         </where>
         <if test="params.orderBy != null and params.orderBy != ''">
@@ -208,11 +238,20 @@
             <if test="model.remark != null and model.remark !='' ">
               and remark = #{model.remark}
             </if>
+            <if test="model.deptId != null ">
+                and dept_id = #{model.deptId}
+            </if>
             <if test="model.createUserId != null and model.createUserId !='' ">
               and create_user_id = #{model.createUserId}
             </if>
             <if test="model.createTime != null ">
               and create_time = #{model.createTime}
+            </if>
+            <if test="model.updateUserId != null and model.updateUserId !='' ">
+              and update_user_id = #{model.updateUserId}
+            </if>
+            <if test="model.updateTime != null ">
+              and update_time = #{model.updateTime}
             </if>
         </where>
         <if test="model.params != null and model.params.orderBy != null and model.params.orderBy != ''">
@@ -222,6 +261,101 @@
             </if>
         </if>
         limit #{start}, #{count}
+    </select>
+    <sql id="whereSQL">
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (
+                `user`.`name` like #{keyword}
+                or
+                `user`.nickname like #{keyword}
+                or
+                `user`.tel like #{keyword}
+                or
+                `user`.remark like #{keyword}
+                )
+            </if>
+            <if test="gender != null">
+                and `user`.gender = #{gender}
+            </if>
+            <if test="status != null">
+                and `user`.status = #{status}
+            </if>
+            <if test="deptId != null">
+                and `user`.dept_id = #{deptId}
+            </if>
+            <if test="createTimeStart != null">
+                and `user`.create_time &gt;= #{createTimeStart}
+            </if>
+            <if test="createTimeEnd != null">
+                and `user`.create_time &lt;= #{createTimeEnd}
+            </if>
+        </where>
+    </sql>
+    <select id="listPage" resultType="com.iuuui.common.dto.system.SysUserListDTO" parameterType="java.util.Map">
+        SELECT
+            `user`.id id,
+            `user`.`name` `name`,
+            `user`.nickname nickname,
+            `user`.tel_code telCode,
+            `user`.tel tel,
+            `user`.avatar avatar,
+            `user`.`status` `status`,
+            `user`.gender gender,
+            `user`.introduction introduction,
+            `user`.remark remark,
+            `user`.dept_id deptId,
+            dept.`name` deptName,
+            `user`.create_user_id createUserId,
+            `user`.create_time createTime,
+            `user`.update_user_id updateUserId,
+            updateUser.`name` updateUserName,
+            `user`.update_time updateTime
+        FROM sys_user `user`
+        LEFT JOIN sys_dept dept ON dept.id = user.dept_id
+        LEFT JOIN sys_user updateUser ON updateUser.id = user.update_user_id
+
+        <include refid="whereSQL"/>
+
+        order by `user`.create_time desc
+        limit #{start}, #{count}
+    </select>
+    <select id="count" resultType="java.lang.Long" parameterType="java.util.Map">
+        SELECT
+            COUNT(*)
+        FROM sys_user `user`
+        LEFT JOIN sys_dept dept ON dept.id = user.dept_id
+        LEFT JOIN sys_user updateUser ON updateUser.id = user.update_user_id
+        <include refid="whereSQL"/>
+    </select>
+    <select id="listBasicInfo" resultType="com.iuuui.common.dto.system.SysUserBasicInfoDTO" parameterType="java.util.Map">
+        select
+            `user`.id id,
+            `user`.`name` `name`,
+            `user`.nickname nickname,
+            `user`.tel_code telCode,
+            `user`.tel tel,
+            `user`.dept_id deptId,
+            dept.`name` deptName
+        from sys_user `user`
+        left join sys_dept dept on dept.id = `user`.dept_id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (
+                `user`.`name` like #{keyword}
+                or
+                `user`.`tel` like #{tel}
+                or
+                `user`.`nickname` like #{nickname}
+                or
+                `user`.`remark` like #{remark}
+                )
+            </if>
+            <if test="status != null">
+                and `user`.`status` = #{status}
+            </if>
+        </where>
+        order by `user`.create_time desc
     </select>
 
 </mapper>

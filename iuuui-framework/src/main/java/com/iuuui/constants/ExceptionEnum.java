@@ -6,14 +6,21 @@ package com.iuuui.constants;
  */
 public enum ExceptionEnum {
 
-    DATA_EXCEPTION("data_exception", "data exception"), // 数据异常
-    DATA_DOES_NOT_EXIST_EXCEPTION("data_does_not_exist_exception", "data does not exist exception"), // 数据不存在
-    DATA_ALREADY_EXIST_EXCEPTION("data_already_exist_exception", "data already exist exception"), // 数据已存在
-    PARAMETER_EXCEPTION("parameter_exception", "parameter exception"), // 参数异常
-    PARAMETER_EMPTY_EXCEPTION("parameter_empty_exception", "parameter empty exception"); // 参数空异常
+    DATA("", "数据异常"),
+    NO_DATA("", "数据不存在"),
+    ALREADY_DATA("", "数据已存在", "存在相同[%s]"),
+    PARAM("", "参数异常"),
+    NULL_PARAM("", "参数空异常", "[%s]不能为空");
 
     private String code;
     private String message;
+    private String messageArgs;
+
+    ExceptionEnum(String code, String message, String messageArgs) {
+        this.code = code;
+        this.message = message;
+        this.messageArgs = messageArgs;
+    }
 
     ExceptionEnum(String code, String message) {
         this.code = code;
@@ -34,5 +41,13 @@ public enum ExceptionEnum {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getMessageArgs() {
+        return messageArgs;
+    }
+
+    public void setMessageArgs(String messageArgs) {
+        this.messageArgs = messageArgs;
     }
 }

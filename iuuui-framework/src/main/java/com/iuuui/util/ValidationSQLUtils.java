@@ -21,7 +21,7 @@ public class ValidationSQLUtils {
     public static String checkIllegal(String param) {
         if (StringUtils.isEmpty(param)) return null;
         if (illegal(param))
-            throw new BusinessException(ExceptionEnum.PARAMETER_EXCEPTION);
+            throw new BusinessException(ExceptionEnum.NULL_PARAM);
         return param;
     }
 

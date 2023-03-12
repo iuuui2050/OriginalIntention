@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iuuui.dao.system.SysRoleDeptDao">
+
+	<resultMap id="baseResultMap" type="com.iuuui.domain.system.SysRoleDept">
+		<result property="id" column="id" />
+		<result property="roleId" column="role_id" />
+		<result property="deptId" column="dept_id" />
+	</resultMap>
+
+    <sql id="fields">  id,  role_id,  dept_id  </sql>
+
+    <sql id="table_name">sys_role_dept</sql>
+
+    <sql id="selector">
+        select <include refid="fields"/> from <include refid="table_name"/>
+    </sql>
+
+    <delete id="deleteM">
+        DELETE FROM <include refid="table_name"/>
+        WHERE id = #{id}
+    </delete>
+
+    <insert id="createM" useGeneratedKeys="true" keyProperty="id" parameterType="com.iuuui.domain.system.SysRoleDept">
+		INSERT INTO <include refid="table_name"/>(<include refid="fields"/>)
+        VALUES (  #{id},  #{roleId},  #{deptId}  )
+	</insert>
+
+    <update id="updateM" parameterType="com.iuuui.domain.system.SysRoleDept">
+        UPDATE
+        <include refid="table_name"/>
+        <set>
+            <if test="roleId != null ">
+              role_id = #{roleId},
+            </if>
+            <if test="deptId != null ">
+              dept_id = #{deptId}
+            </if>
+          </set>
+        where id = #{id}
+    </update>
+
+    <select id="getByIdM" resultMap="baseResultMap">
+        <include refid="selector"/>
+        WHERE id = #{id}
+    </select>
+
+    <select id="countM" resultType="java.lang.Long">
+        select
+        count(*)
+        from
+        <include refid="table_name"/>
+        <where>
+            <if test="id != null and id !='' ">
+                and id = #{id}
+            </if>
+            <if test="roleId != null and roleId !='' ">
+                and role_id = #{roleId}
+            </if>
+            <if test="deptId != null and deptId !='' ">
+                and dept_id = #{deptId}
+            </if>
+        </where>
+</select>
+
+    <select id="selectM" resultMap="baseResultMap">
+        <include refid="selector"/>
+        <where>
+            <if test="id != null and id !='' ">
+                  and id = #{id}
+            </if>
+            <if test="roleId != null and roleId !='' ">
+                  and role_id = #{roleId}
+            </if>
+            <if test="deptId != null and deptId !='' ">
+                  and dept_id = #{deptId}
+            </if>
+        </where>
+        <if test="params.orderBy != null and params.orderBy != ''">
+            ORDER  BY ${params.orderBy}
+            <if test="params.by != null and params.by != ''">
+                ${params.by}
+            </if>
+        </if>
+    </select>
+
+
+    <select id="selectByPageM" resultMap="baseResultMap">
+        <include refid="selector"/>
+        <where>
+            <if test="model.id != null and model.id !='' ">
+              and id = #{model.id}
+            </if>
+            <if test="model.roleId != null and model.roleId !='' ">
+              and role_id = #{model.roleId}
+            </if>
+            <if test="model.deptId != null and model.deptId !='' ">
+              and dept_id = #{model.deptId}
+            </if>
+        </where>
+        <if test="model.params != null and model.params.orderBy != null and model.params.orderBy != ''">
+            ORDER  BY ${model.params.orderBy}
+            <if test="model.params.by != null and model.params.by != ''">
+                ${model.params.by}
+            </if>
+        </if>
+        limit #{start}, #{count}
+    </select>
+
+</mapper>

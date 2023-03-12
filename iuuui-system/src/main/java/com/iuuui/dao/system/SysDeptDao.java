@@ -1,7 +1,10 @@
 package com.iuuui.dao.system;
 
 import com.iuuui.base.BaseDao;
+import com.iuuui.common.dto.system.SysDeptTreeDTO;
 import com.iuuui.domain.system.SysDept;
+
+import java.util.List;
 
 /**
  * @author iuuui
@@ -9,4 +12,5 @@ import com.iuuui.domain.system.SysDept;
  */
 public interface SysDeptDao extends BaseDao<SysDept> {
 
+    List<SysDeptTreeDTO> list();
 }

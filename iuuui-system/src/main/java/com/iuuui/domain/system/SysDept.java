@@ -1,5 +1,7 @@
 package com.iuuui.domain.system;
 
+import com.iuuui.annotation.auto.AutoTime;
+import com.iuuui.annotation.auto.AutoUserId;
 import com.iuuui.base.BaseModel;
 import java.util.Date;
 
@@ -28,7 +30,7 @@ public class SysDept extends BaseModel {
 	/**
 	 * 标识
 	 */
-	private String key;
+	private String code;
 
 	/**
 	 * 部门负责人
@@ -43,21 +45,25 @@ public class SysDept extends BaseModel {
 	/**
 	 * 创建人
 	 */
+	@AutoUserId
 	private Long createUserId;
 
 	/**
 	 * 创建时间
 	 */
+	@AutoTime
 	private Date createTime;
 
 	/**
 	 * 更新者
 	 */
+	@AutoUserId(force = true)
 	private Long updateUserId;
 
 	/**
 	 * 更新时间
 	 */
+	@AutoTime(force = true)
 	private Date updateTime;
 
 
@@ -86,12 +92,12 @@ public class SysDept extends BaseModel {
 		this.name = name;
 	}
 
-	public String getKey() {
-		return key;
+	public String getCode() {
+		return code;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public Long getLeaderUserId() {

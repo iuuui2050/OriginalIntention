@@ -1,5 +1,7 @@
 package com.iuuui.domain.system;
 
+import com.iuuui.annotation.auto.AutoTime;
+import com.iuuui.annotation.auto.AutoUserId;
 import com.iuuui.base.BaseModel;
 import java.util.Date;
 
@@ -11,7 +13,7 @@ import java.util.Date;
 public class SysUserRole extends BaseModel {
 
 	/**
-	 * 
+	 * 主键
 	 */
 	private Long id;
 
@@ -28,11 +30,13 @@ public class SysUserRole extends BaseModel {
 	/**
 	 * 创建人
 	 */
+	@AutoUserId
 	private Long createUserId;
 
 	/**
 	 * 创建时间
 	 */
+	@AutoTime
 	private Date createTime;
 
 

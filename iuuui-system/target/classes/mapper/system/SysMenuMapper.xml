@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iuuui.dao.system.SysMenuDao">
+
+	<resultMap id="baseResultMap" type="com.iuuui.domain.system.SysMenu">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="parentId" column="parent_id" />
+		<result property="isExternalLink" column="is_external_link" />
+		<result property="routerPath" column="router_path" />
+		<result property="routerParam" column="router_param" />
+		<result property="componentPath" column="component_path" />
+		<result property="type" column="type" />
+		<result property="status" column="status" />
+		<result property="permissionCode" column="permission_code" />
+		<result property="icon" column="icon" />
+		<result property="remark" column="remark" />
+		<result property="sort" column="sort" />
+		<result property="createUserId" column="create_user_id" />
+		<result property="createTime" column="create_time" />
+		<result property="updateUserId" column="update_user_id" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+    <sql id="fields">  id,  name,  parent_id,  is_external_link,  router_path,  router_param,  component_path,  type,  status,  permission_code,  icon,  remark,  sort,  create_user_id,  create_time,  update_user_id,  update_time  </sql>
+
+    <sql id="table_name">sys_menu</sql>
+
+    <sql id="selector">
+        select <include refid="fields"/> from <include refid="table_name"/>
+    </sql>
+
+    <delete id="deleteM">
+        DELETE FROM <include refid="table_name"/>
+        WHERE id = #{id}
+    </delete>
+
+    <insert id="createM" useGeneratedKeys="true" keyProperty="id" parameterType="com.iuuui.domain.system.SysMenu">
+		INSERT INTO <include refid="table_name"/>(<include refid="fields"/>)
+        VALUES (  #{id},  #{name},  #{parentId},  #{isExternalLink},  #{routerPath},  #{routerParam},  #{componentPath},  #{type},  #{status},  #{permissionCode},  #{icon},  #{remark},  #{sort},  #{createUserId},  #{createTime},  #{updateUserId},  #{updateTime}  )
+	</insert>
+
+    <update id="updateM" parameterType="com.iuuui.domain.system.SysMenu">
+        UPDATE
+        <include refid="table_name"/>
+        <set>
+            <if test="name != null ">
+              name = #{name},
+            </if>
+            <if test="parentId != null ">
+              parent_id = #{parentId},
+            </if>
+            <if test="isExternalLink != null ">
+              is_external_link = #{isExternalLink},
+            </if>
+            <if test="routerPath != null ">
+              router_path = #{routerPath},
+            </if>
+            <if test="routerParam != null ">
+              router_param = #{routerParam},
+            </if>
+            <if test="componentPath != null ">
+              component_path = #{componentPath},
+            </if>
+            <if test="type != null ">
+              type = #{type},
+            </if>
+            <if test="status != null ">
+              status = #{status},
+            </if>
+            <if test="permissionCode != null ">
+              permission_code = #{permissionCode},
+            </if>
+            <if test="icon != null ">
+              icon = #{icon},
+            </if>
+            <if test="remark != null ">
+              remark = #{remark},
+            </if>
+            <if test="sort != null ">
+              sort = #{sort},
+            </if>
+            <if test="createUserId != null ">
+              create_user_id = #{createUserId},
+            </if>
+            <if test="createTime != null ">
+              create_time = #{createTime},
+            </if>
+            <if test="updateUserId != null ">
+              update_user_id = #{updateUserId},
+            </if>
+            <if test="updateTime != null ">
+              update_time = #{updateTime}
+            </if>
+          </set>
+        where id = #{id}
+    </update>
+
+    <select id="getByIdM" resultMap="baseResultMap">
+        <include refid="selector"/>
+        WHERE id = #{id}
+    </select>
+
+    <select id="countM" resultType="java.lang.Long">
+        select
+        count(*)
+        from
+        <include refid="table_name"/>
+        <where>
+            <if test="id != null and id !='' ">
+                and id = #{id}
+            </if>
+            <if test="name != null and name !='' ">
+                and name = #{name}
+            </if>
+            <if test="parentId != null and parentId !='' ">
+                and parent_id = #{parentId}
+            </if>
+            <if test="isExternalLink != null and isExternalLink !='' ">
+                and is_external_link = #{isExternalLink}
+            </if>
+            <if test="routerPath != null and routerPath !='' ">
+                and router_path = #{routerPath}
+            </if>
+            <if test="routerParam != null and routerParam !='' ">
+                and router_param = #{routerParam}
+            </if>
+            <if test="componentPath != null and componentPath !='' ">
+                and component_path = #{componentPath}
+            </if>
+            <if test="type != null and type !='' ">
+                and type = #{type}
+            </if>
+            <if test="status != null and status !='' ">
+                and status = #{status}
+            </if>
+            <if test="permissionCode != null and permissionCode !='' ">
+                and permission_code = #{permissionCode}
+            </if>
+            <if test="icon != null and icon !='' ">
+                and icon = #{icon}
+            </if>
+            <if test="remark != null and remark !='' ">
+                and remark = #{remark}
+            </if>
+            <if test="sort != null and sort !='' ">
+                and sort = #{sort}
+            </if>
+            <if test="createUserId != null and createUserId !='' ">
+                and create_user_id = #{createUserId}
+            </if>
+            <if test="createTime != null and createTime !='' ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateUserId != null and updateUserId !='' ">
+                and update_user_id = #{updateUserId}
+            </if>
+            <if test="updateTime != null and updateTime !='' ">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+</select>
+
+    <select id="selectM" resultMap="baseResultMap">
+        <include refid="selector"/>
+        <where>
+            <if test="id != null and id !='' ">
+                  and id = #{id}
+            </if>
+            <if test="name != null and name !='' ">
+                  and name = #{name}
+            </if>
+            <if test="parentId != null and parentId !='' ">
+                  and parent_id = #{parentId}
+            </if>
+            <if test="isExternalLink != null and isExternalLink !='' ">
+                  and is_external_link = #{isExternalLink}
+            </if>
+            <if test="routerPath != null and routerPath !='' ">
+                  and router_path = #{routerPath}
+            </if>
+            <if test="routerParam != null and routerParam !='' ">
+                  and router_param = #{routerParam}
+            </if>
+            <if test="componentPath != null and componentPath !='' ">
+                  and component_path = #{componentPath}
+            </if>
+            <if test="type != null and type !='' ">
+                  and type = #{type}
+            </if>
+            <if test="status != null and status !='' ">
+                  and status = #{status}
+            </if>
+            <if test="permissionCode != null and permissionCode !='' ">
+                  and permission_code = #{permissionCode}
+            </if>
+            <if test="icon != null and icon !='' ">
+                  and icon = #{icon}
+            </if>
+            <if test="remark != null and remark !='' ">
+                  and remark = #{remark}
+            </if>
+            <if test="sort != null and sort !='' ">
+                  and sort = #{sort}
+            </if>
+            <if test="createUserId != null and createUserId !='' ">
+                  and create_user_id = #{createUserId}
+            </if>
+            <if test="createTime != null ">
+                  and create_time = #{createTime}
+            </if>
+            <if test="updateUserId != null and updateUserId !='' ">
+                  and update_user_id = #{updateUserId}
+            </if>
+            <if test="updateTime != null ">
+                  and update_time = #{updateTime}
+            </if>
+        </where>
+        <if test="params.orderBy != null and params.orderBy != ''">
+            ORDER  BY ${params.orderBy}
+            <if test="params.by != null and params.by != ''">
+                ${params.by}
+            </if>
+        </if>
+    </select>
+
+
+    <select id="selectByPageM" resultMap="baseResultMap">
+        <include refid="selector"/>
+        <where>
+            <if test="model.id != null and model.id !='' ">
+              and id = #{model.id}
+            </if>
+            <if test="model.name != null and model.name !='' ">
+              and name = #{model.name}
+            </if>
+            <if test="model.parentId != null and model.parentId !='' ">
+              and parent_id = #{model.parentId}
+            </if>
+            <if test="model.isExternalLink != null and model.isExternalLink !='' ">
+              and is_external_link = #{model.isExternalLink}
+            </if>
+            <if test="model.routerPath != null and model.routerPath !='' ">
+              and router_path = #{model.routerPath}
+            </if>
+            <if test="model.routerParam != null and model.routerParam !='' ">
+              and router_param = #{model.routerParam}
+            </if>
+            <if test="model.componentPath != null and model.componentPath !='' ">
+              and component_path = #{model.componentPath}
+            </if>
+            <if test="model.type != null and model.type !='' ">
+              and type = #{model.type}
+            </if>
+            <if test="model.status != null and model.status !='' ">
+              and status = #{model.status}
+            </if>
+            <if test="model.permissionCode != null and model.permissionCode !='' ">
+              and permission_code = #{model.permissionCode}
+            </if>
+            <if test="model.icon != null and model.icon !='' ">
+              and icon = #{model.icon}
+            </if>
+            <if test="model.remark != null and model.remark !='' ">
+              and remark = #{model.remark}
+            </if>
+            <if test="model.sort != null and model.sort !='' ">
+              and sort = #{model.sort}
+            </if>
+            <if test="model.createUserId != null and model.createUserId !='' ">
+              and create_user_id = #{model.createUserId}
+            </if>
+            <if test="model.createTime != null ">
+              and create_time = #{model.createTime}
+            </if>
+            <if test="model.updateUserId != null and model.updateUserId !='' ">
+              and update_user_id = #{model.updateUserId}
+            </if>
+            <if test="model.updateTime != null ">
+              and update_time = #{model.updateTime}
+            </if>
+        </where>
+        <if test="model.params != null and model.params.orderBy != null and model.params.orderBy != ''">
+            ORDER  BY ${model.params.orderBy}
+            <if test="model.params.by != null and model.params.by != ''">
+                ${model.params.by}
+            </if>
+        </if>
+        limit #{start}, #{count}
+    </select>
+    <select id="list" resultType="com.iuuui.common.dto.system.SysMenuTreeDTO">
+        SELECT
+            menu.id  id,
+            menu.`name`  `name`,
+            menu.parent_id  parentId,
+            menu.is_external_link  isExternalLink,
+            menu.router_path  routerPath,
+            menu.router_param  routerParam,
+            menu.component_path  componentPath,
+            menu.type  type,
+            menu.`status`  `status`,
+            menu.permission_code  permissionCode,
+            menu.icon  icon,
+            menu.remark  remark,
+            menu.sort  sort,
+            menu.create_user_id  createUserId,
+            menu.create_time  createTime,
+            menu.update_user_id  updateUserId,
+            menu.update_time  updateTime
+        FROM
+            sys_menu  menu
+    </select>
+
+</mapper>

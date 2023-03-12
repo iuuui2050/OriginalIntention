@@ -18,6 +18,20 @@ public class BaseModel implements Serializable {
         return params;
     }
 
+    public void orderByAsc(String orderBy) {
+        this.setParams(new HashMap(){{
+            put("orderBy", orderBy);
+            put("by", "asc");
+        }});
+    }
+
+    public void orderByDesc(String orderBy) {
+        this.setParams(new HashMap(){{
+            put("orderBy", orderBy);
+            put("by", "desc");
+        }});
+    }
+
     public void setParams(Map<String, Object> params) {
         this.params = params;
     }
